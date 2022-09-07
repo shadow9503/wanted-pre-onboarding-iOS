@@ -19,6 +19,7 @@
 		F8BF0EAE28C7522600679F6F /* weather_casterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BF0EAD28C7522600679F6F /* weather_casterTests.swift */; };
 		F8BF0EB828C7522600679F6F /* weather_casterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BF0EB728C7522600679F6F /* weather_casterUITests.swift */; };
 		F8BF0EBA28C7522600679F6F /* weather_casterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BF0EB928C7522600679F6F /* weather_casterUITestsLaunchTests.swift */; };
+		F8D5149E28C8E6F900963A8E /* 11d.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D5149D28C8E6F900963A8E /* 11d.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		F8BF0EB328C7522600679F6F /* weather_casterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weather_casterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8BF0EB728C7522600679F6F /* weather_casterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weather_casterUITests.swift; sourceTree = "<group>"; };
 		F8BF0EB928C7522600679F6F /* weather_casterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weather_casterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F8D5149D28C8E6F900963A8E /* 11d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11d.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 		F8BF0E9528C7522400679F6F /* weather_caster */ = {
 			isa = PBXGroup;
 			children = (
+				F8D5149928C8E67800963A8E /* Resources */,
 				F8685E6128C882F1007D7711 /* View */,
 				F8685E5E28C76129007D7711 /* Models */,
 				F8BF0E9628C7522400679F6F /* AppDelegate.swift */,
@@ -150,6 +153,22 @@
 				F8BF0EB928C7522600679F6F /* weather_casterUITestsLaunchTests.swift */,
 			);
 			path = weather_casterUITests;
+			sourceTree = "<group>";
+		};
+		F8D5149928C8E67800963A8E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F8D5149A28C8E68000963A8E /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F8D5149A28C8E68000963A8E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F8D5149D28C8E6F900963A8E /* 11d.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +277,7 @@
 			files = (
 				F8BF0EA328C7522600679F6F /* LaunchScreen.storyboard in Resources */,
 				F8BF0EA028C7522600679F6F /* Assets.xcassets in Resources */,
+				F8D5149E28C8E6F900963A8E /* 11d.png in Resources */,
 				F8BF0E9E28C7522400679F6F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

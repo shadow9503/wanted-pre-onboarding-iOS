@@ -34,7 +34,7 @@ class OpenWeatherMap {
 //                "공주": "Gongju",
 //                "광주(전라남도)": "Gwangju",
 //                "구미": "Gumi",
-//                "대구": "Daegu",
+                "대구": "Daegu",
 //                "대전": "Daejeon",
 //                "목포": "Mokpo",
 //                "부산": "Busan",
