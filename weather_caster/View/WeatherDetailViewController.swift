@@ -40,18 +40,26 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
+        
         report = reports.first!
         setUI(report!)
     }
     
     func setUI(_ report: OpenWeatherMap.report) {
         DispatchQueue.main.async { [self] in
+            
+            // 스택뷰 세부 spacing 조정
+            windStackView.setCustomSpacing(20, after: windIcon)
+            pressureStackView.setCustomSpacing(20, after: pressureIcon)
+            sunriseStackView.setCustomSpacing(20, after: sunriseTimeLabel)
+            sunsetStackView.setCustomSpacing(20, after: sunsetTimeLabel)
+            
+            // 값 매핑
             let minTemp = "\(String(format: "%.0f", report.main.temp_min - 273.15))°"
             let maxTemp = "\(String(format: "%.0f", report.main.temp_max - 273.15))°"
             let curTemp = "\(String(format: "%.0f", report.main.temp - 273.15))°"
             let feelTemp = "\(String(format: "%.0f", report.main.feels_like - 273.15))°"
             let city = appDelegate?.openWeatherMap.cityNames.filter { $0.value == report.name.split(separator: " ")[0] }
-            
             cityLabel.text = city?.first!.key
             tempLabel.text = curTemp
             tempDetailLabel.text = "\(maxTemp) | \(minTemp) 체감온도 \(feelTemp)"
@@ -61,18 +69,11 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
             pressureLabel.text = "\(report.main.pressure) hPa"
             windLabel.text = "\(report.wind.speed) m/s"
             weatherIcon.loadImage(from: "https://openweathermap.org/img/wn/\(report.weather.first!.icon)@2x.png")
-//            let url = URL(string: "https://openweathermap.org/img/wn/\(report.weather.first!.icon)@2x.png")
-//            let data = try! Data(contentsOf: url!)
-//            DispatchQueue.main.async {
-//                weatherIcon.image = UIImage(data: data)
-//            }
-            windStackView.setCustomSpacing(20, after: windIcon)
-            pressureStackView.setCustomSpacing(20, after: pressureIcon)
-            sunriseStackView.setCustomSpacing(20, after: sunriseTimeLabel)
-            sunsetStackView.setCustomSpacing(20, after: sunsetTimeLabel)
             sunriseTimeLabel.text = timeToString(report.sys.sunrise)
             sunsetTimeLabel.text = timeToString(report.sys.sunset)
             weatherDescriptionLabel.text = report.weather.first?.description
+            
+            // fade in animation
             summaryStackView.alpha = 0
             windStackView.alpha = 0
             pressureStackView.alpha = 0
@@ -85,6 +86,8 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
                 sunriseStackView.alpha = 1
                 sunsetStackView.alpha = 1
             }
+            
+            // refreshing 완료
             scrollView.refreshControl?.endRefreshing()
         }
     }
@@ -104,7 +107,7 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
         pressureStackView.alpha = 0
         sunriseStackView.alpha = 0
         sunsetStackView.alpha = 0
-        reports.removeAll()
+        reports.removeAll(keepingCapacity: false)
     }
    
     @objc func refreshView(_ refreshControl: UIRefreshControl) {

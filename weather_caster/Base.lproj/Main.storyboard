@@ -162,10 +162,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="city" destination="gdf-3a-nLT" id="2lD-No-RGL"/>
-                                            <outlet property="temp" destination="ZdU-T1-AW7" id="MVW-uv-XWJ"/>
-                                            <outlet property="weather" destination="rqn-nt-NZH" id="Plh-yy-CQ4"/>
+                                            <outlet property="cityLabel" destination="gdf-3a-nLT" id="txp-BB-pCJ"/>
+                                            <outlet property="humidityLabel" destination="Nf2-Oj-fsc" id="xkD-Ie-wMk"/>
+                                            <outlet property="tempLabel" destination="ZdU-T1-AW7" id="Wud-bg-AjZ"/>
                                             <outlet property="weatherIcon" destination="oQf-Cl-Qpx" id="RBS-uG-nNz"/>
+                                            <outlet property="weatherLabel" destination="rqn-nt-NZH" id="a6m-mp-fKS"/>
                                             <segue destination="gYK-mm-nxI" kind="presentation" modalPresentationStyle="fullScreen" id="KSa-Xh-GpJ"/>
                                         </connections>
                                     </tableViewCell>
@@ -728,7 +729,7 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" id="fgw-mA-5p6">
-                            <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="d06-Z4-i87">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="d06-Z4-i87">
                                 <rect key="frame" x="20" y="5" width="374" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>

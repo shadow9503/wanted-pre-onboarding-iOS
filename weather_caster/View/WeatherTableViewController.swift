@@ -23,7 +23,7 @@ class WeatherTableViewController: UIViewController {
         tableView.layer.cornerRadius = 10
         naviItem.largeTitleDisplayMode = .automatic
         reports = (appDelegate?.openWeatherMap.getWeatherReports())!
-//        reports = Utils.UserDefaultsManager.reports!
+//        naviItem.title = "오늘의 전국 날씨 (\(reports.count))"
     }
 }
 
@@ -48,7 +48,6 @@ extension WeatherTableViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(reports.count)
         return reports.count
     }
     
@@ -58,17 +57,11 @@ extension WeatherTableViewController: UITableViewDelegate, UITableViewDataSource
         let cityNameKR = appDelegate?.openWeatherMap.cityNames.filter { $0.value == item.name.split(separator: " ")[0] }
         let weather = item.weather.first!
         
-        cell.city.text = cityNameKR?.first?.key
-        cell.weather.text = weather.main
-        cell.temp.text = "\(String(format: "%.0f", item.main.temp - 273.15))°"
+        cell.cityLabel.text = cityNameKR?.first?.key
+        cell.weatherLabel.text = weather.main
+        cell.tempLabel.text = "\(String(format: "%.0f", item.main.temp - 273.15))°"
+        cell.humidityLabel.text = "\(item.main.humidity)%"
         cell.weatherIcon.loadImage(from: "https://openweathermap.org/img/wn/\(weather.icon)@2x.png")
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            let url = URL(string: "https://openweathermap.org/img/wn/\(weather.icon)@2x.png")
-//            let data = try! Data(contentsOf: url!)
-//            DispatchQueue.main.async {
-//                cell.weatherIcon.image = UIImage(data: data)
-//            }
-//        }
         return cell
     }
 }

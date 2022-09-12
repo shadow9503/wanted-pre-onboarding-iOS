@@ -87,13 +87,15 @@ class OpenWeatherMap {
         let sunset: Double
     }
     
-    /// OpenWeatherMap API를 이용하여 cityNames 배열에 정의된 도시들의 정보를 가져온다.
+    /// 메인 날씨 리스트 불러올때 사용
     func getWeather(completion: @escaping((Result) -> ())) {
         weatherReports.removeAll(keepingCapacity: false)
         let concurrentQueue = DispatchQueue(label: "api.weather", qos: .userInitiated, attributes: .concurrent, target: .global())
+        let customQueue = DispatchQueue(label: "api.weather.custom1", attributes: .concurrent)
+        let old = CFAbsoluteTimeGetCurrent()
         let group1 = DispatchGroup()
-        
         for (_, value) in cityNames {
+            
             group1.enter()
             concurrentQueue.async() {
                 let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(value)&appid=\(self.apikey)"
@@ -101,7 +103,9 @@ class OpenWeatherMap {
                 let session = URLSession(configuration: .default)
                 session.dataTask(with: url!) { data, response, error in
                     guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
-                    self.setWeatherReports(weatherReport: result)
+                    customQueue.async(flags: .barrier) {
+                        self.setWeatherReports(weatherReport: result)
+                    }
                     group1.leave()
                 }.resume()
             }
@@ -109,9 +113,11 @@ class OpenWeatherMap {
         
         group1.notify(queue: concurrentQueue) {
             completion(.sucess)
+            print(CFAbsoluteTimeGetCurrent() - old)
         }
     }
     
+    ///  날씨 상세화면에서 새로고침시 사용
     func getWeather(city: String, completion: @escaping((report) -> ())) {
         DispatchQueue.global(qos: .userInteractive).async {
             let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city.split(separator: " ")[0])&appid=\(self.apikey)"
