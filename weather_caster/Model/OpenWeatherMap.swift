@@ -7,6 +7,7 @@
 
 import Foundation
 
+// using api - https://openweathermap.org/current
 class OpenWeatherMap {
     
     enum Result {
@@ -93,7 +94,7 @@ class OpenWeatherMap {
         weatherReports.removeAll(keepingCapacity: false)
         let concurrentQueue = DispatchQueue(label: "api.weather", qos: .userInitiated, attributes: .concurrent, target: .global())
         let customQueue = DispatchQueue(label: "api.weather.custom1", attributes: .concurrent)
-        let old = CFAbsoluteTimeGetCurrent()
+        
         let group1 = DispatchGroup()
         for (_, value) in cityNames {
             
@@ -103,6 +104,10 @@ class OpenWeatherMap {
                 let url = URL(string: urlString)
                 let session = URLSession(configuration: .default)
                 session.dataTask(with: url!) { data, response, error in
+                    if let err = error {
+                        print(err.localizedDescription)
+                        completion(.failed)
+                    }
                     guard var result = try? JSONDecoder().decode(report.self, from: data!) else { return }
                     customQueue.async(flags: .barrier) {
                         result.nameKR = self.cityNames.filter { $0.value == result.name.split(separator: " ")[0] }.first!.key
@@ -115,17 +120,20 @@ class OpenWeatherMap {
         
         group1.notify(queue: concurrentQueue) {
             completion(.sucess)
-            print(CFAbsoluteTimeGetCurrent() - old)
         }
     }
     
     ///  날씨 상세화면에서 새로고침시 사용
-    func getWeather(city: String, completion: @escaping((report) -> ())) {
+    func getWeather(city: String, completion: @escaping((report?) -> ())) {
         DispatchQueue.global(qos: .userInteractive).async {
             let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city.split(separator: " ")[0])&appid=\(self.apikey)"
             let url = URL(string: urlString)
             let session = URLSession(configuration: .default)
             session.dataTask(with: url!) { data, response, error in
+                if let err = error {
+                    print(err.localizedDescription)
+                    completion(nil)
+                }
                 guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
                 completion(result)
             }.resume()

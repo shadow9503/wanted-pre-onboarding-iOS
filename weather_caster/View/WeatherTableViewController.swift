@@ -18,25 +18,30 @@ class WeatherTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        naviItem.largeTitleDisplayMode = .automatic
         tableView.decelerationRate = .fast
         tableView.layer.cornerRadius = 10
+        
+        // pull to refresh
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
-        naviItem.largeTitleDisplayMode = .automatic
+        
         reports = (appDelegate?.openWeatherMap.getWeatherReports())!
 //        naviItem.title = "오늘의 전국 날씨 (\(reports.count))"
     }
     
     @objc func refreshView(_ refreshControl: UIRefreshControl) {
-        appDelegate?.openWeatherMap.getWeather(completion: { [self] result in
+        appDelegate?.openWeatherMap.getWeather(completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .sucess:
-                    reports = (appDelegate?.openWeatherMap.getWeatherReports())!
-                    tableView.refreshControl?.endRefreshing()
+                    self.reports = (self.appDelegate?.openWeatherMap.getWeatherReports())!
+                    self.tableView.refreshControl?.endRefreshing()
                     break
                 case .failed:
-                    tableView.refreshControl?.endRefreshing()
+                    print("error: no results")
+                    self.tableView.refreshControl?.endRefreshing()
                     break
                 }
             }

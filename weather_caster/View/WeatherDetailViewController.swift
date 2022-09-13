@@ -37,7 +37,10 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         scrollView.delegate = self
+        
+        // pull to refresh
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
         
@@ -112,7 +115,11 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
    
     @objc func refreshView(_ refreshControl: UIRefreshControl) {
         appDelegate?.openWeatherMap.getWeather(city: report!.name, completion: { result in
-            self.setUI(result)
+            if result != nil {
+                self.setUI(result!)
+            } else {
+                print("error: no result")
+            }
         })
     }
     

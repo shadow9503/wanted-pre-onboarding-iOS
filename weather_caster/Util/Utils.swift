@@ -10,6 +10,7 @@ import UIKit
 
 class Utils {
     
+    // 테스트시 로컬에 저장하여 사용하기위한 코드
     struct UserDefaultsManager {
         @UserDefaultWrapper(key: "reports", defaultValue: nil)
         static var reports: [OpenWeatherMap.report]?

@@ -1,7 +1,7 @@
 //
 //  SplashViewController.swift
 //  weather_caster
-//
+//  
 //  Created by 유영훈 on 2022/09/07.
 //
 
