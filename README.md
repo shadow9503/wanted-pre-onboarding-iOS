@@ -6,23 +6,25 @@
 - 현재 날씨정보를 알려주는 APP
 - 날씨 리스트와, 상세화면으로 구성
 
-## 실행 모습
 
-![스플래시](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/17a5e497-8874-4071-8ff7-1892ec03587c/Untitled.png)
+## 실행 모습
 
 스플래시
 
-![날씨 상세 (Pull to refresh)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e917898d-0709-4038-9057-7be90e658cfe/Untitled.png)
+![splash](https://user-images.githubusercontent.com/33388081/189927287-49a3291c-a120-4aba-9045-f19af885451b.png)
 
 날씨 상세 (Pull to refresh)
 
-![날씨 리스트 (메인)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/64a5923f-116e-483a-afa6-d5207d5e3225/Untitled.png)
+![refresh](https://user-images.githubusercontent.com/33388081/189927350-d2d4482a-eece-45fb-acff-ab39af7ba998.png)
 
 날씨 리스트 (메인)
 
-![날씨 상세](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bffc87b1-a530-40ed-bef4-0a45d8608f15/Untitled.png)
+![list](https://user-images.githubusercontent.com/33388081/189927322-152ecf59-353e-4e7a-ab68-0cd8dc5231a7.png)
 
 날씨 상세
+
+![detail](https://user-images.githubusercontent.com/33388081/189927369-a1932ad1-34bf-489e-81da-34177d519b30.png)
+
 
 ## 상세
 
@@ -33,6 +35,7 @@
 - image는 처음 1회 이후로는 캐시된 이미지를 이용한다.
 - 메인 페이지의 날씨 리스트와 상세페이지는 pull to refresh 방식으로
 업데이트 가능.
+
 
 ## 💡이슈
 
