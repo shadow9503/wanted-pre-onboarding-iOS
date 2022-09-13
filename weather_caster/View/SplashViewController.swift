@@ -9,33 +9,13 @@ import UIKit
 
 class SplashViewController: UIViewController {
 
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//            test()
         initialize()
-    }
-    
-    func test() {
-        
-        DispatchQueue.main.async {
-            print(Utils.UserDefaultsManager.reports)
-            self.performSegue(withIdentifier: "toMain", sender: nil)
-        }
-        
-//        appDelegate?.openWeatherMap.getWeather(city: "Seoul", completion: { result in
-//            switch result {
-//            case .sucess:
-//                DispatchQueue.main.async {
-//                    print(Utils.UserDefaultsManager.reports)
-//                    self.performSegue(withIdentifier: "toMain", sender: nil)
-//                }
-//                break
-//            case .failed:
-//                break
-//            }
-//        })
     }
     
     /// 기본 데이터 setup
@@ -44,8 +24,7 @@ class SplashViewController: UIViewController {
             switch result {
             case .sucess:
                 let reports = self.appDelegate?.openWeatherMap.getWeatherReports()
-                Utils.UserDefaultsManager.reports = reports
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     self.performSegue(withIdentifier: "toMain", sender: nil)
                 }
                 break

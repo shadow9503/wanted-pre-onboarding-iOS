@@ -45,6 +45,7 @@ class Utils {
     }
 }
 
+// MARK: 이미지 캐싱
 public let imageCache = NSCache<NSString, UIImage>()
 
 extension UIImageView {
@@ -55,7 +56,6 @@ extension UIImageView {
         image = nil
         
         if let cachedImage = imageCache.object(forKey: urlString as NSString) {
-            print(cachedImage)
             self.image = cachedImage
             return nil
         }
@@ -66,7 +66,6 @@ extension UIImageView {
             guard let data = data else { return }
             
             DispatchQueue.main.async {
-                print("now cached")
                 guard let img = UIImage(data: data) else { return }
                 imageCache.setObject(img, forKey: urlString as NSString)
                 self.image = img

@@ -9,7 +9,6 @@ import UIKit
 
 class WeatherTableViewController: UIViewController {
     
-    //- 도시이름, 날씨 아이콘, 현재기온, 체감기온, 헌재습도, 최저기온, 최고기온, 기압, 풍속, 날씨설명
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var naviItem: UINavigationItem!
     
@@ -21,9 +20,27 @@ class WeatherTableViewController: UIViewController {
         super.viewDidLoad()
         tableView.decelerationRate = .fast
         tableView.layer.cornerRadius = 10
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
         naviItem.largeTitleDisplayMode = .automatic
         reports = (appDelegate?.openWeatherMap.getWeatherReports())!
 //        naviItem.title = "오늘의 전국 날씨 (\(reports.count))"
+    }
+    
+    @objc func refreshView(_ refreshControl: UIRefreshControl) {
+        appDelegate?.openWeatherMap.getWeather(completion: { [self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .sucess:
+                    reports = (appDelegate?.openWeatherMap.getWeatherReports())!
+                    tableView.refreshControl?.endRefreshing()
+                    break
+                case .failed:
+                    tableView.refreshControl?.endRefreshing()
+                    break
+                }
+            }
+        })
     }
 }
 
