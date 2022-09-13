@@ -9,13 +9,12 @@
 
 ## 실행 모습
 
-<p>
-    <img width="200" height="600" src="https://user-images.githubusercontent.com/33388081/189927287-49a3291c-a120-4aba-9045-f19af885451b.png">
-    <img width="200" height="600" src="https://user-images.githubusercontent.com/33388081/189927350-d2d4482a-eece-45fb-acff-ab39af7ba998.png">
+<p align="center">
+    <img width="300" height="500" src="https://user-images.githubusercontent.com/33388081/189927287-49a3291c-a120-4aba-9045-f19af885451b.png">
+    <img width="300" height="500" src="https://user-images.githubusercontent.com/33388081/189927350-d2d4482a-eece-45fb-acff-ab39af7ba998.png">
+    <img width="300" height="500" src="https://user-images.githubusercontent.com/33388081/189927322-152ecf59-353e-4e7a-ab68-0cd8dc5231a7.png">
+    <img width="300" height="500" src="https://user-images.githubusercontent.com/33388081/189927369-a1932ad1-34bf-489e-81da-34177d519b30.png">
 </p>
-
-https://user-images.githubusercontent.com/33388081/189927322-152ecf59-353e-4e7a-ab68-0cd8dc5231a7.png
-https://user-images.githubusercontent.com/33388081/189927369-a1932ad1-34bf-489e-81da-34177d519b30.png
 
 
 ## 상세
