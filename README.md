@@ -28,11 +28,11 @@
 
 - MVC 패턴을 사용하여 구현
 - OpenWeather의 Current weather data api를 사용
-    - 20개의 지역에서 현재날씨 데이터를 가져오기위해.
-    **Concurrent Queue**를 사용하여 다중 스레드 작업 수행
+    - 20개의 지역에서 현재날씨 데이터를 가져오기위해,
+    **Concurrent Queue**를 사용하여 다중 스레드 작업 수행.
 - image는 처음 1회 이후로는 캐시된 이미지를 이용한다.
 - 메인 페이지의 날씨 리스트와 상세페이지는 pull to refresh 방식으로
-업데이트 가능하다
+업데이트 가능.
 
 ## 💡이슈
 
