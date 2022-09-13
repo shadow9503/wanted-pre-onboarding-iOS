@@ -125,7 +125,7 @@ class OpenWeatherMap {
     
     ///  날씨 상세화면에서 새로고침시 사용
     func getWeather(city: String, completion: @escaping((report?) -> ())) {
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city.split(separator: " ")[0])&appid=\(self.apikey)"
             let url = URL(string: urlString)
             let session = URLSession(configuration: .default)
