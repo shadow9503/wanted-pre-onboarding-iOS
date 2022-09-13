@@ -27,7 +27,7 @@ class OpenWeatherMap {
 
     /// 기상정보 getter
     func getWeatherReports() -> [report] {
-        return weatherReports
+        return weatherReports.sorted { $0.nameKR! < $1.nameKR! }
     }
     
     let cityNames = [
@@ -54,6 +54,7 @@ class OpenWeatherMap {
     ]
     
     struct report: Codable {
+        var nameKR: String?
         let name: String
         let main: main
         let weather: [weather]
@@ -102,8 +103,9 @@ class OpenWeatherMap {
                 let url = URL(string: urlString)
                 let session = URLSession(configuration: .default)
                 session.dataTask(with: url!) { data, response, error in
-                    guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
+                    guard var result = try? JSONDecoder().decode(report.self, from: data!) else { return }
                     customQueue.async(flags: .barrier) {
+                        result.nameKR = self.cityNames.filter { $0.value == result.name.split(separator: " ")[0] }.first!.key
                         self.setWeatherReports(weatherReport: result)
                     }
                     group1.leave()

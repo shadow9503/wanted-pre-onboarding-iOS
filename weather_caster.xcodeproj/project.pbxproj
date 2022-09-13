@@ -27,6 +27,13 @@
 		F8D514AC28CF0F5500963A8E /* wind100.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D514A828CF0F5500963A8E /* wind100.png */; };
 		F8D514AD28CF0F5500963A8E /* pressure50.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D514A928CF0F5500963A8E /* pressure50.png */; };
 		F8D514AF28CF176C00963A8E /* pressure90.png in Resources */ = {isa = PBXBuildFile; fileRef = F8D514AE28CF176C00963A8E /* pressure90.png */; };
+		F8D514B328D06EBA00963A8E /* back2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B028D06EB900963A8E /* back2.jpg */; };
+		F8D514B428D06EBA00963A8E /* back1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B128D06EBA00963A8E /* back1.jpg */; };
+		F8D514B528D06EBA00963A8E /* back3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B228D06EBA00963A8E /* back3.jpg */; };
+		F8D514BB28D0734000963A8E /* NanumGothic.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B728D0733E00963A8E /* NanumGothic.otf */; };
+		F8D514BC28D0734000963A8E /* NanumGothicExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B828D0733F00963A8E /* NanumGothicExtraBold.otf */; };
+		F8D514BD28D0734000963A8E /* NanumGothicLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D514B928D0733F00963A8E /* NanumGothicLight.otf */; };
+		F8D514BE28D0734000963A8E /* NanumGothicBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D514BA28D0733F00963A8E /* NanumGothicBold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +78,13 @@
 		F8D514A828CF0F5500963A8E /* wind100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wind100.png; sourceTree = "<group>"; };
 		F8D514A928CF0F5500963A8E /* pressure50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pressure50.png; sourceTree = "<group>"; };
 		F8D514AE28CF176C00963A8E /* pressure90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pressure90.png; sourceTree = "<group>"; };
+		F8D514B028D06EB900963A8E /* back2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back2.jpg; sourceTree = "<group>"; };
+		F8D514B128D06EBA00963A8E /* back1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back1.jpg; sourceTree = "<group>"; };
+		F8D514B228D06EBA00963A8E /* back3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back3.jpg; sourceTree = "<group>"; };
+		F8D514B728D0733E00963A8E /* NanumGothic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumGothic.otf; sourceTree = "<group>"; };
+		F8D514B828D0733F00963A8E /* NanumGothicExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumGothicExtraBold.otf; sourceTree = "<group>"; };
+		F8D514B928D0733F00963A8E /* NanumGothicLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumGothicLight.otf; sourceTree = "<group>"; };
+		F8D514BA28D0733F00963A8E /* NanumGothicBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumGothicBold.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +188,7 @@
 		F8D5149928C8E67800963A8E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F8D514B628D0731C00963A8E /* Fonts */,
 				F8D5149A28C8E68000963A8E /* Images */,
 			);
 			path = Resource;
@@ -182,6 +197,9 @@
 		F8D5149A28C8E68000963A8E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F8D514B128D06EBA00963A8E /* back1.jpg */,
+				F8D514B028D06EB900963A8E /* back2.jpg */,
+				F8D514B228D06EBA00963A8E /* back3.jpg */,
 				F8D514AE28CF176C00963A8E /* pressure90.png */,
 				F8D514A928CF0F5500963A8E /* pressure50.png */,
 				F8D514A728CF0F5500963A8E /* pressure100.png */,
@@ -198,6 +216,17 @@
 				F8D514A228CEDC5300963A8E /* Utils.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		F8D514B628D0731C00963A8E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F8D514B728D0733E00963A8E /* NanumGothic.otf */,
+				F8D514BA28D0733F00963A8E /* NanumGothicBold.otf */,
+				F8D514B828D0733F00963A8E /* NanumGothicExtraBold.otf */,
+				F8D514B928D0733F00963A8E /* NanumGothicLight.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,15 +333,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D514B528D06EBA00963A8E /* back3.jpg in Resources */,
+				F8D514BB28D0734000963A8E /* NanumGothic.otf in Resources */,
 				F8D514AB28CF0F5500963A8E /* pressure100.png in Resources */,
 				F8BF0EA328C7522600679F6F /* LaunchScreen.storyboard in Resources */,
 				F8D514AF28CF176C00963A8E /* pressure90.png in Resources */,
 				F8BF0EA028C7522600679F6F /* Assets.xcassets in Resources */,
 				F8D514AA28CF0F5500963A8E /* wind50.png in Resources */,
+				F8D514BC28D0734000963A8E /* NanumGothicExtraBold.otf in Resources */,
+				F8D514BE28D0734000963A8E /* NanumGothicBold.otf in Resources */,
 				F8D514AC28CF0F5500963A8E /* wind100.png in Resources */,
 				F8D5149E28C8E6F900963A8E /* 11d.png in Resources */,
 				F8BF0E9E28C7522400679F6F /* Main.storyboard in Resources */,
+				F8D514BD28D0734000963A8E /* NanumGothicLight.otf in Resources */,
+				F8D514B428D06EBA00963A8E /* back1.jpg in Resources */,
 				F8D514AD28CF0F5500963A8E /* pressure50.png in Resources */,
+				F8D514B328D06EBA00963A8E /* back2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
