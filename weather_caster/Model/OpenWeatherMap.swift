@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol GetWeatherDataProtocol: class {
+    func weatherIsUpdate(report: OpenWeatherMap.report)
+    func weatherIsUpdate(reports: [OpenWeatherMap.report])
+}
+
 // using api - https://openweathermap.org/current
 class OpenWeatherMap {
     
@@ -15,6 +20,7 @@ class OpenWeatherMap {
         case failed
     }
     
+    public var delegate: GetWeatherDataProtocol!
     public static let shared = OpenWeatherMap()
     private let apikey = "9cc7ad4ec735a5bf5571581dcd2f6118"
     private var weatherReports: [report] = []
@@ -90,7 +96,41 @@ class OpenWeatherMap {
     }
     
     /// 메인 날씨 리스트 불러올때 사용
-    func getWeather(completion: @escaping((Result) -> ())) {
+//    func getWeather(completion: @escaping((Result) -> ())) {
+//        weatherReports.removeAll(keepingCapacity: false)
+//        let concurrentQueue = DispatchQueue(label: "api.weather", qos: .userInitiated, attributes: .concurrent, target: .global())
+//        let customQueue = DispatchQueue(label: "api.weather.custom1", attributes: .concurrent)
+//
+//        let group1 = DispatchGroup()
+//        for (_, value) in cityNames {
+//
+//            group1.enter()
+//            concurrentQueue.async() {
+//                let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(value)&appid=\(self.apikey)"
+//                let url = URL(string: urlString)
+//                let session = URLSession(configuration: .default)
+//                session.dataTask(with: url!) { data, response, error in
+//                    if let err = error {
+//                        print(err.localizedDescription)
+//                        completion(.failed)
+//                    }
+//                    guard var result = try? JSONDecoder().decode(report.self, from: data!) else { return }
+//                    customQueue.async(flags: .barrier) {
+//                        result.nameKR = self.cityNames.filter { $0.value == result.name.split(separator: " ")[0] }.first!.key
+//                        self.setWeatherReports(weatherReport: result)
+//                    }
+//                    group1.leave()
+//                }.resume()
+//            }
+//        }
+//
+//        group1.notify(queue: concurrentQueue) {
+//            completion(.sucess)
+//        }
+//    }
+    
+    /// 메인 날씨 리스트 불러올때 사용 - using delegate pattern
+    func downloadWeatherReports() {
         weatherReports.removeAll(keepingCapacity: false)
         let concurrentQueue = DispatchQueue(label: "api.weather", qos: .userInitiated, attributes: .concurrent, target: .global())
         let customQueue = DispatchQueue(label: "api.weather.custom1", attributes: .concurrent)
@@ -106,7 +146,6 @@ class OpenWeatherMap {
                 session.dataTask(with: url!) { data, response, error in
                     if let err = error {
                         print(err.localizedDescription)
-                        completion(.failed)
                     }
                     guard var result = try? JSONDecoder().decode(report.self, from: data!) else { return }
                     customQueue.async(flags: .barrier) {
@@ -119,12 +158,31 @@ class OpenWeatherMap {
         }
         
         group1.notify(queue: concurrentQueue) {
-            completion(.sucess)
+            DispatchQueue.main.async {
+                self.delegate.weatherIsUpdate(reports: self.getWeatherReports())
+            }
         }
     }
     
     ///  날씨 상세화면에서 새로고침시 사용
-    func getWeather(city: String, completion: @escaping((report?) -> ())) {
+//    func getWeather(city: String, completion: @escaping((report?) -> ())) {
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city.split(separator: " ")[0])&appid=\(self.apikey)"
+//            let url = URL(string: urlString)
+//            let session = URLSession(configuration: .default)
+//            session.dataTask(with: url!) { data, response, error in
+//                if let err = error {
+//                    print(err.localizedDescription)
+//                    completion(nil)
+//                }
+//                guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
+//                completion(result)
+//            }.resume()
+//        }
+//    }
+    
+    ///  날씨 상세화면에서 새로고침시 사용 - using delegate pattern
+    func downloadWeatherReport(city: String) {
         DispatchQueue.global(qos: .userInitiated).async {
             let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city.split(separator: " ")[0])&appid=\(self.apikey)"
             let url = URL(string: urlString)
@@ -132,10 +190,11 @@ class OpenWeatherMap {
             session.dataTask(with: url!) { data, response, error in
                 if let err = error {
                     print(err.localizedDescription)
-                    completion(nil)
                 }
                 guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
-                completion(result)
+                DispatchQueue.main.async {
+                    self.delegate.weatherIsUpdate(report: result)
+                }
             }.resume()
         }
     }

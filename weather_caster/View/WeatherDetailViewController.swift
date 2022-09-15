@@ -39,24 +39,23 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         scrollView.delegate = self
+        appDelegate?.openWeatherMap.delegate = self
+        self.report = reports.first!
+        self.setUI(self.report!)
         
         // pull to refresh
         scrollView.refreshControl = UIRefreshControl()
         scrollView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
         
-        report = reports.first!
-        setUI(report!)
+        // 스택뷰 세부 spacing 조정
+        windStackView.setCustomSpacing(20, after: windIcon)
+        pressureStackView.setCustomSpacing(20, after: pressureIcon)
+        sunriseStackView.setCustomSpacing(20, after: sunriseTimeLabel)
+        sunsetStackView.setCustomSpacing(20, after: sunsetTimeLabel)
     }
     
     func setUI(_ report: OpenWeatherMap.report) {
         DispatchQueue.main.async { [self] in
-            
-            // 스택뷰 세부 spacing 조정
-            windStackView.setCustomSpacing(20, after: windIcon)
-            pressureStackView.setCustomSpacing(20, after: pressureIcon)
-            sunriseStackView.setCustomSpacing(20, after: sunriseTimeLabel)
-            sunsetStackView.setCustomSpacing(20, after: sunsetTimeLabel)
-            
             // 값 매핑
             let minTemp = "\(String(format: "%.0f", report.main.temp_min - 273.15))°"
             let maxTemp = "\(String(format: "%.0f", report.main.temp_max - 273.15))°"
@@ -114,16 +113,25 @@ class WeatherDetailViewController: UIViewController, UIScrollViewDelegate {
     }
    
     @objc func refreshView(_ refreshControl: UIRefreshControl) {
-        appDelegate?.openWeatherMap.getWeather(city: report!.name, completion: { result in
-            if result != nil {
-                self.setUI(result!)
-            } else {
-                print("error: no result")
-            }
-        })
+        appDelegate?.openWeatherMap.downloadWeatherReport(city: self.report!.name)
+//        appDelegate?.openWeatherMap.getWeather(city: report!.name, completion: { result in
+//            if result != nil {
+//                self.setUI(result!)
+//            } else {
+//                print("error: no result")
+//            }
+//        })
     }
     
     @IBAction func backToMain(_ sender: Any) {
         self.dismiss(animated: true)
     }
+}
+
+extension WeatherDetailViewController: GetWeatherDataProtocol {
+    func weatherIsUpdate(report: OpenWeatherMap.report) {
+        self.report = report
+        self.setUI(self.report!)
+    }
+    func weatherIsUpdate(reports: [OpenWeatherMap.report]) {}
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class WeatherTableViewController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var naviItem: UINavigationItem!
     
@@ -19,6 +19,9 @@ class WeatherTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        appDelegate?.openWeatherMap.delegate = self
+        appDelegate?.openWeatherMap.downloadWeatherReports()
+        
         naviItem.largeTitleDisplayMode = .automatic
         tableView.decelerationRate = .fast
         tableView.layer.cornerRadius = 10
@@ -27,25 +30,26 @@ class WeatherTableViewController: UIViewController {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshView(_:)), for: .valueChanged)
         
-        reports = (appDelegate?.openWeatherMap.getWeatherReports())!
+//        reports = (appDelegate?.openWeatherMap.getWeatherReports())!
 //        naviItem.title = "오늘의 전국 날씨 (\(reports.count))"
     }
     
     @objc func refreshView(_ refreshControl: UIRefreshControl) {
-        appDelegate?.openWeatherMap.getWeather(completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .sucess:
-                    self.reports = (self.appDelegate?.openWeatherMap.getWeatherReports())!
-                    self.tableView.refreshControl?.endRefreshing()
-                    break
-                case .failed:
-                    print("error: no results")
-                    self.tableView.refreshControl?.endRefreshing()
-                    break
-                }
-            }
-        })
+        appDelegate?.openWeatherMap.downloadWeatherReports()
+//        appDelegate?.openWeatherMap.getWeather(completion: { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .sucess:
+//                    self.reports = (self.appDelegate?.openWeatherMap.getWeatherReports())!
+//                    self.tableView.refreshControl?.endRefreshing()
+//                    break
+//                case .failed:
+//                    print("error: no results")
+//                    self.tableView.refreshControl?.endRefreshing()
+//                    break
+//                }
+//            }
+//        })
     }
 }
 
@@ -88,3 +92,11 @@ extension WeatherTableViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+extension WeatherTableViewController: GetWeatherDataProtocol {
+    func weatherIsUpdate(report: OpenWeatherMap.report) {}
+    func weatherIsUpdate(reports: [OpenWeatherMap.report]) {
+        self.reports = reports
+        self.tableView.reloadData()
+        self.tableView.refreshControl?.endRefreshing()
+    }
+}
