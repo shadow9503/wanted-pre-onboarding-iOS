@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Network
 
 protocol GetWeatherDataProtocol: class {
     func weatherIsUpdate(report: OpenWeatherMap.report)
@@ -24,6 +25,7 @@ class OpenWeatherMap {
     public static let shared = OpenWeatherMap()
     private let apikey = "9cc7ad4ec735a5bf5571581dcd2f6118"
     private var weatherReports: [report] = []
+    private var isConnected: Bool = false
     
     private init() {}
     
@@ -131,13 +133,26 @@ class OpenWeatherMap {
     
     /// 메인 날씨 리스트 불러올때 사용 - using delegate pattern
     func downloadWeatherReports() {
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { path in
+           if path.status == .satisfied {
+               print("Connected")
+               self.isConnected = true
+           } else {
+               print("Disconnected")
+               self.isConnected = false
+           }
+        }
+        monitor.start(queue: DispatchQueue.global())
+        monitor.cancel()
+        
         weatherReports.removeAll(keepingCapacity: false)
         let concurrentQueue = DispatchQueue(label: "api.weather", qos: .userInitiated, attributes: .concurrent, target: .global())
         let customQueue = DispatchQueue(label: "api.weather.custom1", attributes: .concurrent)
         
         let group1 = DispatchGroup()
         for (_, value) in cityNames {
-            
+            if !self.isConnected { break }
             group1.enter()
             concurrentQueue.async() {
                 let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(value)&appid=\(self.apikey)"
@@ -146,14 +161,17 @@ class OpenWeatherMap {
                 session.dataTask(with: url!) { data, response, error in
                     if let err = error {
                         print(err.localizedDescription)
+                        group1.leave()
                     }
-                    guard var result = try? JSONDecoder().decode(report.self, from: data!) else { return }
+                    guard let resultData = data else { return }
+                    guard var result = try? JSONDecoder().decode(report.self, from: resultData) else { return }
                     customQueue.async(flags: .barrier) {
                         result.nameKR = self.cityNames.filter { $0.value == result.name.split(separator: " ")[0] }.first!.key
                         self.setWeatherReports(weatherReport: result)
                     }
                     group1.leave()
                 }.resume()
+                
             }
         }
         
@@ -191,7 +209,8 @@ class OpenWeatherMap {
                 if let err = error {
                     print(err.localizedDescription)
                 }
-                guard let result = try? JSONDecoder().decode(report.self, from: data!) else { return }
+                guard let resultData = data else { return }
+                guard let result = try? JSONDecoder().decode(report.self, from: resultData) else { return }
                 DispatchQueue.main.async {
                     self.delegate.weatherIsUpdate(report: result)
                 }

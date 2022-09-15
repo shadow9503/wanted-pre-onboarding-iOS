@@ -74,10 +74,18 @@ extension WeatherTableViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reports.count
+        return reports.count != 0 ? reports.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if reports.count == 0 {
+            let cell = UITableViewCell()
+            var content = cell.defaultContentConfiguration()
+            content.text = "인터넷 연결을 확인해주세요!"
+            content.textProperties.alignment = .center
+            cell.contentConfiguration = content
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         let item = reports[indexPath.row]
         let cityNameKR = appDelegate?.openWeatherMap.cityNames.filter { $0.value == item.name.split(separator: " ")[0] }
