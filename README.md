@@ -11,8 +11,8 @@
 
 <p>
     <img width="170" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
-    <img width="170" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
-    <img width="170" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="170" height="220" src="">
+    <img width="170" height="220" src="">
 </p>
 
 <p align="center">
