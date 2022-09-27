@@ -9,6 +9,12 @@
 
 ## 실행 모습
 
+<p>
+    <img width="100" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="100" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="100" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+</p>
+
 <p align="center">
     <img width="220" height="500" src="https://user-images.githubusercontent.com/33388081/189927287-49a3291c-a120-4aba-9045-f19af885451b.png">
     <img width="220" height="500" src="https://user-images.githubusercontent.com/33388081/189927322-152ecf59-353e-4e7a-ab68-0cd8dc5231a7.png">
