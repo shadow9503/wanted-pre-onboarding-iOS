@@ -10,9 +10,9 @@
 ## 실행 모습
 
 <p>
-    <img width="180" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
-    <img width="180" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
-    <img width="180" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="160" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="160" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
+    <img width="160" height="220" src="https://user-images.githubusercontent.com/33388081/192535202-04ea588c-6557-4f7c-8f8f-3e6f06733049.jpeg">
 </p>
 
 <p align="center">
