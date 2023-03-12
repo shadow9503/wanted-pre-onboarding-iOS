@@ -47,11 +47,10 @@
 
 ### 해결
 
-- thread safe 하기 위해 customQueue를 생성 
-.barrier 옵션을 이용해 동시작업 방지.
+- thread safe 하기 위해 serial queue로 append작업
 
 ```swift
-customQueue.async(flags: .barrier) {
+DispatchQueue.main.sync {
     // append
 }
 ```
